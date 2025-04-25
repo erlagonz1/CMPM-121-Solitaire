@@ -158,6 +158,8 @@ function GrabberClass:release()
   diamondPile:flipTopCardUp()
   clubPile:flipTopCardUp()
   spadePile:flipTopCardUp()
+  
+  deckStack.drawPile:flipTopCardUp()
 
   self.heldObject.state = CARD_STATE.IDLE
   self.heldObject = nil
