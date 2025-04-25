@@ -20,8 +20,8 @@ function CardClass:new(xPos, yPos, faceImage)
   
   card.backImage = love.graphics.newImage("Sprites/CardBack.png")
   card.frontImage = love.graphics.newImage(faceImage)
-  card.image = card.frontImage
-  card.faceUp = true
+  card.image = card.backImage
+  card.faceUp = false
   
   card.size = Vector(card.image:getWidth(), card.image:getHeight())
   
@@ -33,7 +33,7 @@ function CardClass:update()
 end
 
 function CardClass:draw()
-  -- NEW: drop shadow for non-idle cards
+  -- drawing a shadow when cards are not idle, credit to Zac Emerzian (showed us this in class)
   if self.state ~= CARD_STATE.IDLE then
     love.graphics.setColor(0, 0, 0, 0.8) -- color values [0, 1]
     local offset = 4 * (self.state == CARD_STATE.GRABBED and 2 or 1)
@@ -43,7 +43,7 @@ function CardClass:draw()
   love.graphics.setColor(1, 1, 1, 1)
   love.graphics.draw(self.image, self.position.x, self.position.y)
   
-  love.graphics.print(tostring(self.state), self.position.x + 20, self.position.y - 20)
+  --love.graphics.print(tostring(self.state), self.position.x + 20, self.position.y - 20)
 end
 
 function CardClass:checkForMouseOver(grabber)
@@ -64,7 +64,7 @@ function CardClass:checkWithinBounds(object)
     object.y < self.position.y + self.size.y
 end
     
-function CardClass:flip() --call this when I make piles eventually
+function CardClass:flip()
   self.faceUp = not self.faceUp
   self.image = self.faceUp and self.frontImage or self.backImage
 end
