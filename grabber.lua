@@ -52,49 +52,20 @@ function GrabberClass:grab()
       card.state = CARD_STATE.GRABBED
       placeOnTop(card)
       self.grabOffset = self.currentMousePos - card.position
+    
+    
+        for i, tableau in ipairs(tableaus) do
+          if tableau and tableau:contains(card) then
+            tableau:removeCard(tableau:contains(card))
+            break
+          end
+        end
       
-      if tableauOne and tableauOne:contains(card) then
-        tableauOne:removeCard(tableauOne:contains(card))
-      end
-      
-      if tableauTwo and tableauTwo:contains(card) then
-        tableauTwo:removeCard(tableauTwo:contains(card))
-      end
-      
-      if tableauThree and tableauThree:contains(card) then
-        tableauThree:removeCard(tableauThree:contains(card))
-      end
-      
-      if tableauFour and tableauFour:contains(card) then
-        tableauFour:removeCard(tableauFour:contains(card))
-      end
-      
-      if tableauFive and tableauFive:contains(card) then
-        tableauFive:removeCard(tableauFive:contains(card))
-      end
-      
-      if tableauSix and tableauSix:contains(card) then
-        tableauSix:removeCard(tableauSix:contains(card))
-      end
-      
-      if tableauSeven and tableauSeven:contains(card) then
-        tableauSeven:removeCard(tableauSeven:contains(card))
-      end
-      
-      if heartPile and heartPile:contains(card) then
-        heartPile:removeCard(heartPile:contains(card), 0)
-      end
-      
-      if diamondPile and diamondPile:contains(card) then
-        diamondPile:removeCard(diamondPile:contains(card), 0)
-      end
-      
-      if clubPile and clubPile:contains(card) then
-        clubPile:removeCard(clubPile:contains(card), 0)
-      end
-      
-      if spadePile and spadePile:contains(card) then
-        spadePile:removeCard(spadePile:contains(card), 0)
+      for _, pile in ipairs(suitPiles) do
+        if pile and pile:contains(card) then
+          pile:removeCard(pile:contains(card), 0)
+          break
+        end
       end
       
       if deckStack and deckStack.drawPile:contains(card) then
@@ -115,49 +86,31 @@ function GrabberClass:release()
   end
   
   --if the card is released in a tableau
-  if self.heldObject.position.x + 46 >= tableauOne.leftBound and self.heldObject.position.x + 46 <= tableauOne.rightBound and self.heldObject.position.y + 55 <= tableauOne.bottomBound and self.heldObject.position.y + 55 >= tableauOne.topBound then
-    tableauOne:addCard(self.heldObject)
-  elseif self.heldObject.position.x + 46 >= tableauTwo.leftBound and self.heldObject.position.x + 46 <= tableauTwo.rightBound and self.heldObject.position.y + 55 <= tableauTwo.bottomBound and self.heldObject.position.y + 55 >= tableauTwo.topBound then
-    tableauTwo:addCard(self.heldObject)
-  elseif self.heldObject.position.x + 46 >= tableauThree.leftBound and self.heldObject.position.x + 46 <= tableauThree.rightBound and self.heldObject.position.y + 55 <= tableauThree.bottomBound and self.heldObject.position.y + 55 >= tableauThree.topBound then
-    tableauThree:addCard(self.heldObject)
-  elseif self.heldObject.position.x + 46 >= tableauFour.leftBound and self.heldObject.position.x + 46 <= tableauFour.rightBound and self.heldObject.position.y + 55 <= tableauFour.bottomBound and self.heldObject.position.y + 55 >= tableauFour.topBound then
-    tableauFour:addCard(self.heldObject)
-  elseif self.heldObject.position.x + 46 >= tableauFive.leftBound and self.heldObject.position.x + 46 <= tableauFive.rightBound and self.heldObject.position.y + 55 <= tableauFive.bottomBound and self.heldObject.position.y + 55 >= tableauFive.topBound then
-    tableauFive:addCard(self.heldObject)
-  elseif self.heldObject.position.x + 46 >= tableauSix.leftBound and self.heldObject.position.x + 46 <= tableauSix.rightBound and self.heldObject.position.y + 55 <= tableauSix.bottomBound and self.heldObject.position.y + 55 >= tableauSix.topBound then
-    tableauSix:addCard(self.heldObject)
-  elseif self.heldObject.position.x + 46 >= tableauSeven.leftBound and self.heldObject.position.x + 46 <= tableauSeven.rightBound and self.heldObject.position.y + 55 <= tableauSeven.bottomBound and self.heldObject.position.y + 55 >= tableauSeven.topBound then
-    tableauSeven:addCard(self.heldObject)
-    
+  for _, tableau in ipairs(tableaus) do
+    if self.heldObject.position.x + 46 >= tableau.leftBound and self.heldObject.position.x + 46 <= tableau.rightBound and self.heldObject.position.y + 55 <= tableau.bottomBound and self.heldObject.position.y + 55 >= tableau.topBound then
+      tableau:addCard(self.heldObject)
+    end
+  end
+
   --if the card is released in a end pile
-  elseif self.heldObject.position.x + 46 >= heartPile.leftBound and self.heldObject.position.x + 46 <= heartPile.rightBound and self.heldObject.position.y + 55 <= heartPile.bottomBound and self.heldObject.position.y + 55 >= heartPile.topBound then
-    heartPile:addCard(self.heldObject, 0)
-  elseif self.heldObject.position.x + 46 >= diamondPile.leftBound and self.heldObject.position.x + 46 <= diamondPile.rightBound and self.heldObject.position.y + 55 <= diamondPile.bottomBound and self.heldObject.position.y + 55 >= diamondPile.topBound then
-    diamondPile:addCard(self.heldObject, 0)
-  elseif self.heldObject.position.x + 46 >= clubPile.leftBound and self.heldObject.position.x + 46 <= clubPile.rightBound and self.heldObject.position.y + 55 <= clubPile.bottomBound and self.heldObject.position.y + 55 >= clubPile.topBound then
-    clubPile:addCard(self.heldObject, 0)
-  elseif self.heldObject.position.x + 46 >= spadePile.leftBound and self.heldObject.position.x + 46 <= spadePile.rightBound and self.heldObject.position.y + 55 <= spadePile.bottomBound and self.heldObject.position.y + 55 >= spadePile.topBound then
-    spadePile:addCard(self.heldObject, 0)
-  
+  for _, pile in ipairs(suitPiles) do
+    if self.heldObject.position.x + 46 >= pile.leftBound and self.heldObject.position.x + 46 <= pile.rightBound and self.heldObject.position.y + 55 <= pile.bottomBound and self.heldObject.position.y + 55 >= pile.topBound then
+      pile:addCard(self.heldObject, 0)
+    end
+  end
+
   --if the card is released in the draw pile
-  elseif self.heldObject.position.x + 46 >= deckStack.drawPile.leftBound and self.heldObject.position.x + 46 <= deckStack.drawPile.rightBound and self.heldObject.position.y + 55 <= deckStack.drawPile.bottomBound and self.heldObject.position.y + 55 >= deckStack.drawPile.topBound then
+  if self.heldObject.position.x + 46 >= deckStack.drawPile.leftBound and self.heldObject.position.x + 46 <= deckStack.drawPile.rightBound and self.heldObject.position.y + 55 <= deckStack.drawPile.bottomBound and self.heldObject.position.y + 55 >= deckStack.drawPile.topBound then
     deckStack.drawPile:addCard(self.heldObject)
   end
   
-  
-  tableauOne:flipTopCardUp()
-  tableauTwo:flipTopCardUp()
-  tableauThree:flipTopCardUp()
-  tableauFour:flipTopCardUp()
-  tableauFive:flipTopCardUp()
-  tableauSix:flipTopCardUp()
-  tableauSeven:flipTopCardUp()
-  
-  heartPile:flipTopCardUp()
-  diamondPile:flipTopCardUp()
-  clubPile:flipTopCardUp()
-  spadePile:flipTopCardUp()
+  for _, tableau in ipairs(tableaus) do
+    tableau:flipTopCardUp()
+  end
+
+  for _, pile in ipairs(suitPiles) do
+    pile:flipTopCardUp()
+  end
   
   deckStack.drawPile:flipTopCardUp()
 

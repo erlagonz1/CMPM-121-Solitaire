@@ -9,7 +9,7 @@ CARD_STATE = {
   GRABBED = 2,
 }
 
-function CardClass:new(xPos, yPos, faceImage)
+function CardClass:new(xPos, yPos, suit, value)
   local card = {}
   local metadata = {__index = CardClass}
   setmetatable(card, metadata)
@@ -18,8 +18,11 @@ function CardClass:new(xPos, yPos, faceImage)
   card.size = Vector(50, 70)
   card.state = CARD_STATE.IDLE
   
+  card.suit = suit
+  card.value = value
+  
   card.backImage = love.graphics.newImage("Sprites/CardBack.png")
-  card.frontImage = love.graphics.newImage(faceImage)
+  card.frontImage = love.graphics.newImage("Sprites/" .. card.suit .. tostring(card.value) .. ".png")
   card.image = card.backImage
   card.faceUp = false
   
