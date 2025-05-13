@@ -20,6 +20,12 @@ function CardClass:new(xPos, yPos, suit, value)
   
   card.suit = suit
   card.value = value
+  card.color = "not assigned"
+  if card.suit == "Heart" or card.suit == "Diamond" then
+    card.color = "red"
+  else
+    card.color = "black"
+  end
   
   card.backImage = love.graphics.newImage("Sprites/CardBack.png")
   card.frontImage = love.graphics.newImage("Sprites/" .. card.suit .. tostring(card.value) .. ".png")
