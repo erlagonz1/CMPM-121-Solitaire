@@ -15,12 +15,12 @@ function CardClass:new(xPos, yPos, suit, value)
   setmetatable(card, metadata)
   
   card.position = Vector(xPos, yPos)
-  card.size = Vector(50, 70)
   card.state = CARD_STATE.IDLE
   
   card.suit = suit
   card.value = value
   card.color = "not assigned"
+  
   if card.suit == "Heart" or card.suit == "Diamond" then
     card.color = "red"
   else
@@ -42,17 +42,8 @@ function CardClass:update()
 end
 
 function CardClass:draw()
-  -- drawing a shadow when cards are not idle, credit to Zac Emerzian (showed us this in class)
-  if self.state ~= CARD_STATE.IDLE then
-    love.graphics.setColor(0, 0, 0, 0.8) -- color values [0, 1]
-    local offset = 4 * (self.state == CARD_STATE.GRABBED and 2 or 1)
-    love.graphics.rectangle("fill", self.position.x + offset, self.position.y + offset, self.size.x, self.size.y, 6, 6)
-  end
-  
   love.graphics.setColor(1, 1, 1, 1)
   love.graphics.draw(self.image, self.position.x, self.position.y)
-  
-  --love.graphics.print(tostring(self.state), self.position.x + 20, self.position.y - 20)
 end
 
 function CardClass:checkForMouseOver(grabber)
@@ -63,7 +54,6 @@ function CardClass:checkForMouseOver(grabber)
   isMouseOver = self:checkWithinBounds(grabber.currentMousePos)
   
   self.state = isMouseOver and CARD_STATE.MOUSE_OVER or CARD_STATE.IDLE
-  --print(tostring(self.state))
 end
 
 function CardClass:checkWithinBounds(object)

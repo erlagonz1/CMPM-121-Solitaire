@@ -40,11 +40,6 @@ function StackClass:removeCard(index, offset)
   end
 end
 
---function StackClass:removeTopCard(offset)
---  table.remove(self.cards)
---  self.bottomBound = self.bottomBound - (offset or 30)
---end
-
 
 function StackClass:draw()
   love.graphics.setColor(0.8, 0.8, 0.8, 1)
