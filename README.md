@@ -18,4 +18,4 @@ Here's what I did: To clarify, I am still working on the functionality for makin
 <h2>Assets</h2>
 - Sprites: https://screamingbrainstudios.itch.io/poker-pack <br>
 - Music: There is no background music. <br>
-- SFX: There are no sound effects.
+- SFX: All sound effects are from [freesound_community](https://pixabay.com/users/freesound_community-46691455/) on pixabay.com
